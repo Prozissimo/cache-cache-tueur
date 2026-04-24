@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "Bash(PORT=3456 node server.js)",
+      "Bash(curl -s -o /tmp/ccthome.html -w \"HTTP %{http_code}\\\\n\" http://localhost:3456/)",
+      "Bash(curl -s -o /dev/null -w \"socket.io %{http_code}\\\\n\" http://localhost:3456/socket.io/socket.io.js)",
+      "Bash(curl -s -o /dev/null -w \"game.js %{http_code}\\\\n\" http://localhost:3456/game.js)",
+      "Bash(curl -s -o /dev/null -w \"style.css %{http_code}\\\\n\" http://localhost:3456/style.css)",
+      "Bash(PORT=3457 node server.js)",
+      "Bash(curl -s -o /dev/null -w \"home %{http_code}\\\\n\" http://localhost:3457/)",
+      "Bash(curl -s -o /dev/null -w \"game.js %{http_code}\\\\n\" http://localhost:3457/game.js)",
+      "Bash(curl -s -o /dev/null -w \"style %{http_code}\\\\n\" http://localhost:3457/style.css)",
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)"
+    ]
+  }
+}
