@@ -3,80 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Cache-cache tueur</title>
+<title>Chasseur de Mutants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="screen-home" class="screen active">
   <div class="home-box">
-    <h1>🎮 Cache-cache<br><span class="accent">TUEUR</span></h1>
-    <p class="subtitle">Trouve les méchants cachés dans la maison !</p>
-
-    <button id="btn-solo" class="btn huge">🚀 JOUER</button>
-
-    <div id="friends-toggle" class="friends-toggle">👫 Jouer avec mes amis</div>
-    <div id="friends-panel" style="display:none">
-      <label>Ton pseudo</label>
-      <input id="inp-name" type="text" maxlength="14" placeholder="ex: Léo" />
-      <button id="btn-create" class="btn">🏠 Créer un salon</button>
-      <div class="or">— ou —</div>
-      <label>Code du salon</label>
-      <input id="inp-code" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
-      <button id="btn-join" class="btn secondary">🚪 Rejoindre</button>
-    </div>
-
-    <div id="home-error" class="error"></div>
-  </div>
-</div>
-
-<div id="screen-lobby" class="screen">
-  <div class="lobby-box">
-    <h2>Salon <span id="room-code" class="code"></span></h2>
-    <p class="hint">Partage ce code avec tes amis 👫</p>
-    <h3>Joueurs <span id="player-count"></span></h3>
-    <ul id="player-list"></ul>
-    <div id="host-controls" style="display:none">
-      <button id="btn-start" class="btn big">🚀 Lancer la partie</button>
-      <p class="hint">2 joueurs minimum</p>
-    </div>
-    <div id="wait-host" style="display:none">
-      <p class="hint">⏳ En attente du chef de salon...</p>
-    </div>
+    <h1>CHASSEUR<br><span class="accent">DE MUTANTS</span></h1>
+    <p class="subtitle">12 niveaux, des mutants et un boss final ! 🔫👾</p>
+    <button id="btn-solo" class="btn huge">▶ JOUER</button>
+    <p class="controls-hint">⬅️ ➡️ bouger &nbsp;·&nbsp; ESPACE sauter &nbsp;·&nbsp; ENTRÉE tirer<br>Ouvre les coffres 🎁 (hache, fusil, roquette) · bats le boss de chaque niveau !</p>
   </div>
 </div>
 
 <div id="screen-game" class="screen">
   <canvas id="game"></canvas>
+
   <div id="hud">
-    <div id="mission">🎯 Trouve les <span id="badies-left">4</span> méchants !</div>
+    <div class="hud-item" id="hud-hearts">❤️❤️❤️</div>
+    <div class="hud-item">⭐ <span id="coin-count">0</span>/<span id="coin-total">0</span></div>
+    <div class="hud-item" id="hud-weapon">🔫</div>
+    <div class="hud-item">Niveau <span id="level-num">1</span></div>
   </div>
-  <div id="tuto" class="tuto">
-    <div>⬅️⬆️⬇️➡️ <b>Bouge</b></div>
-    <div>␣ <b>Espace</b> : zapper 🔫</div>
-  </div>
-  <div id="mobile-controls">
-    <div id="joystick"><div id="joy-stick"></div></div>
-    <button id="btn-fire" class="mob-btn fire">🔫</button>
-  </div>
-  <div id="win-overlay" class="overlay" style="display:none">
-    <div class="overlay-box">
-      <h2>🎉 BRAVO ! 🎉</h2>
-      <p>Tu as trouvé tous les méchants !</p>
-      <button id="btn-replay" class="btn huge">🔁 Rejouer</button>
+
+  <div id="tuto">⬅️ ➡️ bouge &nbsp;·&nbsp; ␣ saute &nbsp;·&nbsp; ⏎ tire &nbsp;·&nbsp; 🎁 coffres</div>
+
+  <div id="touch">
+    <div class="touch-left">
+      <button id="t-left" class="tbtn">◀</button>
+      <button id="t-right" class="tbtn">▶</button>
+    </div>
+    <div class="touch-right">
+      <button id="t-fire" class="tbtn fire">🔫</button>
+      <button id="t-jump" class="tbtn jump">⤒</button>
     </div>
   </div>
+
+  <div id="clear-overlay" class="overlay" style="display:none">
+    <div class="overlay-box">
+      <h2>⭐ NIVEAU FINI ! ⭐</h2>
+      <p>Prêt pour le niveau <span id="clear-num">2</span> ?</p>
+      <button id="btn-next" class="btn huge">▶ NIVEAU SUIVANT</button>
+      <button class="btn secondary btn-home">🏠 Menu</button>
+    </div>
+  </div>
+
+  <div id="win-overlay" class="overlay" style="display:none">
+    <div class="overlay-box">
+      <h2>🏆 BRAVO ! 🏆</h2>
+      <p>Tu as éliminé tous les mutants !</p>
+      <button id="btn-replay" class="btn huge">🔁 REJOUER</button>
+      <button class="btn secondary btn-home">🏠 Menu</button>
+    </div>
+  </div>
+
   <div id="gameover-overlay" class="overlay" style="display:none">
     <div class="overlay-box">
-      <h2 id="winner-title"></h2>
-      <ul id="reveal-list"></ul>
-      <button id="btn-again" class="btn big" style="display:none">🔁 Retour au lobby</button>
-      <p id="wait-again" class="hint" style="display:none">En attente du chef...</p>
+      <h2>💥 AÏE ! 💥</h2>
+      <p>Tu n'as plus de cœurs... mais tu peux réessayer !</p>
+      <button id="btn-retry" class="btn huge">🔁 RÉESSAYER</button>
+      <button class="btn secondary btn-home">🏠 Menu</button>
     </div>
   </div>
 </div>
 
-<script src="/socket.io/socket.io.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
